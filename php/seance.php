@@ -1,8 +1,10 @@
 <?php include('includes/conexion.php');
   ?>
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Séance | MyCoach</title>
   <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
@@ -18,131 +20,67 @@
   </nav>
   <section class="services-container">
     <h2 id="séances">séances</h2>
- 
-    <div class="service">
-      <?php 
-      //seance
-      $ReqSeance= "SELECT jour,horraire FROM seance WHERE id=1";
-      $ResultSe=$connexion->query($ReqSeance);
-      $seance=$ResultSe->fetch();
-      //sport 
-      $Reqsport="SELECT Nom FROM sport WHERE ID=1 ";
-      $resultSport=$connexion->query($Reqsport);
-      $sport=$resultSport->fetch();
-      //niveau
-      $reqNiveau="SELECT niveau FROM niveau WHERE id=1";
-      $resultNiveau=$connexion->query($reqNiveau);
-      $niveau=$resultNiveau->fetch();
-      //salle 
-      $reqsalle="SELECT Nom,Adresse,CP,Ville FROM salle Where ID=1";
-      $resultSalle=$connexion->query($reqsalle);
-      $salle=$resultSalle->fetch();
-      // Affichage du jour et de l'horaire
-      echo "<h3>Jour : " . $seance['jour'] . ", Horaire : " . $seance['horraire'] . "</h3>";
-      echo "<h4> Sport : " . $sport['Nom'] ." " . "niveau : " . $niveau['niveau'] . "</h4>";
-      echo "<p> Salle : " . $salle['Nom'] . " " . "adresse : " . $salle['Adresse'] . " " . $salle['CP'] . " " . $salle['Ville'];
-  ?>
+    <h1>Séances par jour</h1>
 
-     </div>
+ <form method="post" id="seancesForm">
+  <label for="jour">Sélectionnez un jour :</label>
+  <select name="jour" id="jour" onchange="submitForm()">
+    <option value="">Sélectionnez un jour</option>
+    <option value="Lundi">Lundi</option>
+    <option value="Mardi">Mardi</option>
+    <option value="Mercredi">Mercredi</option>
+    <option value="Jeudi">Jeudi</option>
+    <option value="Vendredi">Vendredi</option>
+    <option value="Samedi">Samedi</option>
+    <option value="Dimanche">Dimanche</option>
+    <option value="*">Toutes les séances</option>
+  </select>
+</form>
 
-    <div class="service">
-    <?php 
-      //seance
-      $ReqSeance= "SELECT jour,horraire FROM seance WHERE id=2";
-      $ResultSe=$connexion->query($ReqSeance);
-      $seance=$ResultSe->fetch();
-      //sport 
-      $Reqsport="SELECT Nom FROM sport WHERE ID=1 ";
-      $resultSport=$connexion->query($Reqsport);
-      $sport=$resultSport->fetch();
-      //niveau
-      $reqNiveau="SELECT niveau FROM niveau WHERE id=2";
-      $resultNiveau=$connexion->query($reqNiveau);
-      $niveau=$resultNiveau->fetch();
-      //salle 
-      $reqsalle="SELECT Nom,Adresse,CP,Ville FROM salle Where ID=1";
-      $resultSalle=$connexion->query($reqsalle);
-      $salle=$resultSalle->fetch();
-      // Affichage du jour et de l'horaire
-      echo "<h3>Jour : " . $seance['jour'] . ", Horaire : " . $seance['horraire'] . "</h3>";
-      echo "<h4> Sport : " . $sport['Nom'] ." " . "niveau : " . $niveau['niveau'] . "</h4>";
-      echo "<p> Salle : " . $salle['Nom'] . " " . "adresse : " . $salle['Adresse'] . " " . $salle['CP'] . " " . $salle['Ville'];
-  ?>
-       </div>
+<script>
+  function submitForm() {
+      document.getElementById("seancesForm").submit();
+  }
+</script>
 
-    <div class="service">
-    <?php 
-      //seance
-      $ReqSeance= "SELECT jour,horraire FROM seance WHERE id=3";
-      $ResultSe=$connexion->query($ReqSeance);
-      $seance=$ResultSe->fetch();
-      //sport 
-      $Reqsport="SELECT Nom FROM sport WHERE ID=2 ";
-      $resultSport=$connexion->query($Reqsport);
-      $sport=$resultSport->fetch();
-      //niveau
-      $reqNiveau="SELECT niveau FROM niveau WHERE id=1";
-      $resultNiveau=$connexion->query($reqNiveau);
-      $niveau=$resultNiveau->fetch();
-      //salle 
-      $reqsalle="SELECT Nom,Adresse,CP,Ville FROM salle Where ID=2";
-      $resultSalle=$connexion->query($reqsalle);
-      $salle=$resultSalle->fetch();
-      // Affichage du jour et de l'horaire
-      echo "<h3>Jour : " . $seance['jour'] . ", Horaire : " . $seance['horraire'] . "</h3>";
-      echo "<h4> Sport : " . $sport['Nom'] ." " . "niveau : " . $niveau['niveau'] . "</h4>";
-      echo "<p> Salle : " . $salle['Nom'] . " " . "adresse : " . $salle['Adresse'] . " " . $salle['CP'] . " " . $salle['Ville'];
-  ?>  
-    </div>
+<div id="service">
+  <?php
+  // Afficher les séances pour le jour sélectionné
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $jourSelectionne = $_POST['jour'];
+      if ($jourSelectionne === '*') {
+        $reqSeance = "SELECT seance.horraire, seance.jour, niveau.niveau, sport.Nom AS sport_nom, salle.Nom AS salle_nom, salle.Adresse, salle.CP, salle.Ville
+                    FROM seance
+                    INNER JOIN sport ON seance.id_sport = sport.ID
+                    INNER JOIN niveau ON seance.id_niveau = niveau.id
+                    INNER JOIN salle ON seance.id_salle = salle.ID";}
+      else{
+      // Requête pour récupérer les séances du jour sélectionné
+      $reqSeance = "SELECT seance.horraire, seance.jour, niveau.niveau, sport.Nom AS sport_nom, salle.Nom AS salle_nom, salle.Adresse, salle.CP, salle.Ville
+                    FROM seance
+                    INNER JOIN sport ON seance.id_sport = sport.ID
+                    INNER JOIN niveau ON seance.id_niveau = niveau.id
+                    INNER JOIN salle ON seance.id_salle = salle.ID
+                    WHERE jour = '$jourSelectionne'";
+      }
+      $result = $connexion->query($reqSeance);
+      if (!$result) {
+          // Afficher l'erreur SQL
+          $errorInfo = $connexion->errorInfo();
+          echo "Erreur SQL : " . $errorInfo[2];
+      } else {
+          // Afficher les séances pour le jour sélectionné ou toutes les séances
+          echo "<div id=\"service\">";
+          while ($seance = $result->fetch()) {
+              echo "<h3>Jour : " . $seance['jour'] . ", Horaire : " . $seance['horraire'] . "</h3>";
+              echo "<h4>Sport : " . $seance['sport_nom'] . ", Niveau : " . $seance['niveau'] . "</h4>";
+              echo "<p>Salle : " . $seance['salle_nom'] . ", Adresse : " . $seance['Adresse'] . ", " . $seance['CP'] . " " . $seance['Ville'] . "</p>";
+          }
+  }
+}
+  ?>
+</div>  
 
-    <div class="service">
-    <?php 
-      //seance
-      $ReqSeance= "SELECT jour,horraire FROM seance WHERE id=4";
-      $ResultSe=$connexion->query($ReqSeance);
-      $seance=$ResultSe->fetch();
-      //sport 
-      $Reqsport="SELECT Nom FROM sport WHERE ID=3 ";
-      $resultSport=$connexion->query($Reqsport);
-      $sport=$resultSport->fetch();
-      //niveau
-      $reqNiveau="SELECT niveau FROM niveau WHERE id=3";
-      $resultNiveau=$connexion->query($reqNiveau);
-      $niveau=$resultNiveau->fetch();
-      //salle 
-      $reqsalle="SELECT Nom,Adresse,CP,Ville FROM salle Where ID=3";
-      $resultSalle=$connexion->query($reqsalle);
-      $salle=$resultSalle->fetch();
-      // Affichage du jour et de l'horaire
-      echo "<h3>Jour : " . $seance['jour'] . ", Horaire : " . $seance['horraire'] . "</h3>";
-      echo "<h4> Sport : " . $sport['Nom'] ." " . "niveau : " . $niveau['niveau'] . "</h4>";
-      echo "<p> Salle : " . $salle['Nom'] . " " . "adresse : " . $salle['Adresse'] . " " . $salle['CP'] . " " . $salle['Ville'];
-  ?>
-   </div>
-   <div class="service">
-    <?php 
-      //seance
-      $ReqSeance= "SELECT jour,horraire FROM seance WHERE id=5";
-      $ResultSe=$connexion->query($ReqSeance);
-      $seance=$ResultSe->fetch();
-      //sport 
-      $Reqsport="SELECT Nom FROM sport WHERE ID=4 ";
-      $resultSport=$connexion->query($Reqsport);
-      $sport=$resultSport->fetch();
-      //niveau
-      $reqNiveau="SELECT niveau FROM niveau WHERE id=2";
-      $resultNiveau=$connexion->query($reqNiveau);
-      $niveau=$resultNiveau->fetch();
-      //salle 
-      $reqsalle="SELECT Nom,Adresse,CP,Ville FROM salle Where ID=4";
-      $resultSalle=$connexion->query($reqsalle);
-      $salle=$resultSalle->fetch();
-      // Affichage du jour et de l'horaire
-      echo "<h3>Jour : " . $seance['jour'] . ", Horaire : " . $seance['horraire'] . "</h3>";
-      echo "<h4> Sport : " . $sport['Nom'] ." " . "niveau : " . $niveau['niveau'] . "</h4>";
-      echo "<p> Salle : " . $salle['Nom'] . " " . "adresse : " . $salle['Adresse'] . " " . $salle['CP'] . " " . $salle['Ville'];
-  ?>
-   </div>
   </section>
 
   <footer>
