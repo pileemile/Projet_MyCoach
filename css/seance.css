@@ -1,0 +1,63 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  img {
+    border-radius: 50%; 
+    width: 100px; 
+    height: 100px; 
+  }
+  h1 {
+    margin: 0;
+  }
+  
+  nav {
+    background-color: #555;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+  }
+  
+  section {
+    padding: 20px;
+  }
+  
+  footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+
+  /* Styles spécifiques pour la page des services */
+  .services-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .service {
+    margin-bottom: 30px;
+    border: 1px solid #ccc;
+    padding: 20px;
+  }
+
+  .service h3 {
+    margin: 0;
+  }
+
+  .service p {
+    margin-top: 10px;
+  }
