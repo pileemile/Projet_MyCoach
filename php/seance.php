@@ -19,7 +19,6 @@
     <a href="#séances">Les séances</a>
   </nav>
   <section class="services-container">
-    <h2 id="séances">séances</h2>
     <h1>Séances par jour</h1>
 
  <form method="post" id="seancesForm">
@@ -53,7 +52,8 @@
                     FROM seance
                     INNER JOIN sport ON seance.id_sport = sport.ID
                     INNER JOIN niveau ON seance.id_niveau = niveau.id
-                    INNER JOIN salle ON seance.id_salle = salle.ID";}
+                    INNER JOIN salle ON seance.id_salle = salle.ID
+                    ORDER BY sport_nom";}
       else{
       // Requête pour récupérer les séances du jour sélectionné
       $reqSeance = "SELECT seance.horraire, seance.jour, niveau.niveau, sport.Nom AS sport_nom, salle.Nom AS salle_nom, salle.Adresse, salle.CP, salle.Ville
@@ -61,7 +61,9 @@
                     INNER JOIN sport ON seance.id_sport = sport.ID
                     INNER JOIN niveau ON seance.id_niveau = niveau.id
                     INNER JOIN salle ON seance.id_salle = salle.ID
-                    WHERE jour = '$jourSelectionne'";
+                    WHERE jour = '$jourSelectionne'
+                    ";
+                     
       }
       $result = $connexion->query($reqSeance);
       if (!$result) {
@@ -72,8 +74,8 @@
           // Afficher les séances pour le jour sélectionné ou toutes les séances
           echo "<div id=\"service\">";
           while ($seance = $result->fetch()) {
-              echo "<h3>Jour : " . $seance['jour'] . ", Horaire : " . $seance['horraire'] . "</h3>";
-              echo "<h4>Sport : " . $seance['sport_nom'] . ", Niveau : " . $seance['niveau'] . "</h4>";
+              echo "<h3>Sport : " . $seance['sport_nom'] . ", Niveau : " . $seance['niveau'] . "</h3>";
+               echo "<h4>Jour : " . $seance['jour'] . ", Horaire : " . $seance['horraire'] . "</h4>";
               echo "<p>Salle : " . $seance['salle_nom'] . ", Adresse : " . $seance['Adresse'] . ", " . $seance['CP'] . " " . $seance['Ville'] . "</p>";
           }
   }
