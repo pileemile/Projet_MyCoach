@@ -1,5 +1,5 @@
 <?php include('includes/conexion.php');
-  ?>
+  //récupère le fichier ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -9,19 +9,20 @@
   <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
+  <!-- haut de page -->
   <header>
     <h1>Coach Carlos Martinez</h1>  <img src="../photo/Photo-2-768x1091.jpg">
    
   </header>
-
+<!-- barre de navigation -->
   <nav>
     <a href="../html/index.html">Accueil</a>
     <a href="#séances">Les séances</a>
   </nav>
+  <!-- contient le bloque -->
   <section class="services-container">
-    <h2 id="séances">séances</h2>
     <h1>Séances par jour</h1>
-
+<!-- liste déroulante avec un formulaire-->
  <form method="post" id="seancesForm">
   <label for="jour">Sélectionnez un jour :</label>
   <select name="jour" id="jour" onchange="submitForm()">
@@ -53,7 +54,8 @@
                     FROM seance
                     INNER JOIN sport ON seance.id_sport = sport.ID
                     INNER JOIN niveau ON seance.id_niveau = niveau.id
-                    INNER JOIN salle ON seance.id_salle = salle.ID";}
+                    INNER JOIN salle ON seance.id_salle = salle.ID
+                    ORDER BY sport_nom";}
       else{
       // Requête pour récupérer les séances du jour sélectionné
       $reqSeance = "SELECT seance.horraire, seance.jour, niveau.niveau, sport.Nom AS sport_nom, salle.Nom AS salle_nom, salle.Adresse, salle.CP, salle.Ville
@@ -61,7 +63,9 @@
                     INNER JOIN sport ON seance.id_sport = sport.ID
                     INNER JOIN niveau ON seance.id_niveau = niveau.id
                     INNER JOIN salle ON seance.id_salle = salle.ID
-                    WHERE jour = '$jourSelectionne'";
+                    WHERE jour = '$jourSelectionne'
+                    ";
+                     
       }
       $result = $connexion->query($reqSeance);
       if (!$result) {
@@ -72,8 +76,8 @@
           // Afficher les séances pour le jour sélectionné ou toutes les séances
           echo "<div id=\"service\">";
           while ($seance = $result->fetch()) {
-              echo "<h3>Jour : " . $seance['jour'] . ", Horaire : " . $seance['horraire'] . "</h3>";
-              echo "<h4>Sport : " . $seance['sport_nom'] . ", Niveau : " . $seance['niveau'] . "</h4>";
+              echo "<h3>Sport : " . $seance['sport_nom'] . ", Niveau : " . $seance['niveau'] . "</h3>";
+               echo "<h4>Jour : " . $seance['jour'] . ", Horaire : " . $seance['horraire'] . "</h4>";
               echo "<p>Salle : " . $seance['salle_nom'] . ", Adresse : " . $seance['Adresse'] . ", " . $seance['CP'] . " " . $seance['Ville'] . "</p>";
           }
   }
@@ -82,7 +86,7 @@
 </div>  
 
   </section>
-
+<!-- pied de page -->
   <footer>
     <p>&copy; 2023 MyCoach. Tous droits réservés.</p>
   </footer>
