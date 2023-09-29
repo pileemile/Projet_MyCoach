@@ -1,5 +1,5 @@
 <?php include('includes/conexion.php');
-  ?>
+  //récupère le fichier ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -9,18 +9,20 @@
   <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
+  <!-- haut de page -->
   <header>
     <h1>Coach Carlos Martinez</h1>  <img src="../photo/Photo-2-768x1091.jpg">
    
   </header>
-
+<!-- barre de navigation -->
   <nav>
     <a href="../html/index.html">Accueil</a>
     <a href="#séances">Les séances</a>
   </nav>
+  <!-- contient le bloque -->
   <section class="services-container">
     <h1>Séances par jour</h1>
-
+<!-- liste déroulante avec un formulaire-->
  <form method="post" id="seancesForm">
   <label for="jour">Sélectionnez un jour :</label>
   <select name="jour" id="jour" onchange="submitForm()">
@@ -84,7 +86,7 @@
 </div>  
 
   </section>
-
+<!-- pied de page -->
   <footer>
     <p>&copy; 2023 MyCoach. Tous droits réservés.</p>
   </footer>
