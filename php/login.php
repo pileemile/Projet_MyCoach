@@ -1,4 +1,8 @@
-<?php include('includes/connexion_utilisateur.php');?>
+<?php //include('connexion_utilisateur.php');
+include('includes/headerNav.php');
+
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,23 +13,21 @@
 </head>
 <body>
 
-  <header>
-    <!-- En-tête ici -->
-  </header>
-
   <section class="login-container">
     <h2>Login</h2>
-    <form action="seance.php" method="post">
-      <label for="username">identifiant:</label>
-      <input type="text" id="username" name="username" required>
+    <form action="connexion_utilisateur.php" method="post">
+      <label for="mail">identifiant:</label>
+      <input type="text" id="mail" name="mail" required>
 
-      <label for="password">mot de passe:</label>
-      <input type="password" id="password" name="password" required>
+      <label for="mdp">mot de passe:</label>
+      <input type="password" id="mdp" name="mdp" required>
 
       <button type="submit">Login</button>
     </form>
   </section>
 
-
+  <?php include('includes/footer.php');
+?>
 </body>
+
 </html>

@@ -1,3 +1,10 @@
+<?php
+session_start(); // Démarrage de la session
+include('includes/headerNav.php');
+
+?>
+
+
 <!DOCTYPE html>
 <html>
   
@@ -10,16 +17,7 @@
 </head>
 <!--corps de la page-->
 <body>
-  <!--haut de page -->
-  <header>
-    <h1>Coach Carlos Martinez</h1>  <img src="../photo/Photo-2-768x1091.jpg">
-   
-  </header>
-<!--barre de navigation vers d'autre page -->
-  <nav>
-    <a href="index.html">Accueil</a>
-    <a href="../php/seance.php">Les seances</a>
-  </nav>
+  
   
   <nav>
     <a href="#presentation">Présentation</a>
@@ -60,8 +58,6 @@
     </div>
   </section>
 <!--pied de page -->
-  <footer>
-    <p>&copy; 2023 MyCoach. Tous droits réservés.</p>
-  </footer>
+<?php include('includes/footer.php');?>
 </body>
 </html>

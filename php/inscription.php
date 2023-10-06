@@ -14,10 +14,10 @@
       <div class="service">
         <h3>Inscription</h3>
         <form action="includes/connexion_utilisateur.php" method="post">
-          <label for="username">Nom d'utilisateur:</label><br>
-          <input type="text" id="username" name="username"><br>
-          <label for="password">Mot de passe:</label><br>
-          <input type="password" id="password" name="password"><br><br>
+          <label for="identifiant">Nom d'utilisateur:</label><br>
+          <input type="text" id="identifiant" name="identifiant"><br>
+          <label for="mdp">Mot de passe:</label><br>
+          <input type="password" id="mdp" name="mdp"><br><br>
           <input type="submit" value="S'inscrire">
         </form>
       </div>

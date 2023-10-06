@@ -1,5 +1,14 @@
 <?php include('includes/conexion.php');
-  //récupère le fichier ?>
+  //récupère le fichier 
+
+  session_start();
+  // Vérifie si l'utilisateur est connecté
+  if (!isset($_SESSION['connecte']) || $_SESSION['connecte'] !== true) {
+  header("Location: login.php"); // Redirige vers la page de connexion
+  exit;
+}
+ 
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -9,17 +18,7 @@
   <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
-  <!-- haut de page -->
-  <header>
-    <h1>Coach Carlos Martinez</h1>  <img src="../photo/Photo-2-768x1091.jpg">
-   
-  </header>
-<!-- barre de navigation -->
-  <nav>
-    <a href="../html/index.html">Accueil</a>
-    <a href="#séances">Les séances</a>
-  </nav>
-  <!-- contient le bloque -->
+<?php include('includes/headerNav.php');?>
   <section class="services-container">
     <h1>Séances par jour</h1>
 <!-- liste déroulante avec un formulaire-->
@@ -47,7 +46,7 @@
 <div id="service">
   <?php
   // Afficher les séances pour le jour sélectionné
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  isset($_POST['jour'])) {
       $jourSelectionne = $_POST['jour'];
       if ($jourSelectionne === '*') {
         $reqSeance = "SELECT seance.horraire, seance.jour, niveau.niveau, sport.Nom AS sport_nom, salle.Nom AS salle_nom, salle.Adresse, salle.CP, salle.Ville
@@ -57,14 +56,14 @@
                     INNER JOIN salle ON seance.id_salle = salle.ID
                     ORDER BY sport_nom";}
       else{
+         
       // Requête pour récupérer les séances du jour sélectionné
       $reqSeance = "SELECT seance.horraire, seance.jour, niveau.niveau, sport.Nom AS sport_nom, salle.Nom AS salle_nom, salle.Adresse, salle.CP, salle.Ville
                     FROM seance
                     INNER JOIN sport ON seance.id_sport = sport.ID
                     INNER JOIN niveau ON seance.id_niveau = niveau.id
                     INNER JOIN salle ON seance.id_salle = salle.ID
-                    WHERE jour = '$jourSelectionne'
-                    ";
+                    WHERE jour = '$jourSelectionne'";
                      
       }
       $result = $connexion->query($reqSeance);
@@ -87,8 +86,6 @@
 
   </section>
 <!-- pied de page -->
-  <footer>
-    <p>&copy; 2023 MyCoach. Tous droits réservés.</p>
-  </footer>
+<?php include('includes/footer.php');?>
 </body>
 </html>
