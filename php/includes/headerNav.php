@@ -11,4 +11,5 @@
     <a href="seance.php">Les seances</a>
     <a href="login.php">Connexion</a>
     <a href="deconnexion.php">Deconnexion</a>
+    <a href="inscription.php">Inscription</a>
   </nav>

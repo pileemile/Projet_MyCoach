@@ -39,15 +39,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: seance.php");
             exit;
         } else {
-            header("Location: login.php");
-            // Le mot de passe ne correspond pas
-            echo 'Adresse e-mail ou mot de passe incorrect.';
+            //redirection vers la page de connexion 
+            header("Location: login.php?error=" ).  $errorMessage;
+            exit;
 
         }
     } else {
-        header("Location: login.php");
-        // L'utilisateur n'existe pas
-        0echo 'Adresse e-mail ou mot de passe incorrect.';
+            //redirection vers la page de connexion 
+            header("Location: login.php?error=") . echo $errorMessage;
+            exit;
     }
 }
 ?>

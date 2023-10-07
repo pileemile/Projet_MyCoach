@@ -1,31 +1,39 @@
+<?php //inclu la page header 
+include('includes/headerNav.php');
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Inscription</title>
-  <link rel="stylesheet" type="text/css" href="../css/seance.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inscription | MyCoach</title>
+  <link rel="stylesheet" type="text/css" href="../css/login.css">
 </head>
 <body>
-  <header>
-    <h1>Inscription</h1>
-  </header>
+  <!-- formulaire d'inscription -->
+  <section class="login-container">
+    <h2>Inscription</h2>
+    <form action="inscription_utilisateur.php" method="post">
+      <label for="nom">Nom:</label>
+      <input type="text" id="nom" name="nom" required>
 
-  <section>
-    <div class="services-container">
-      <div class="service">
-        <h3>Inscription</h3>
-        <form action="includes/connexion_utilisateur.php" method="post">
-          <label for="identifiant">Nom d'utilisateur:</label><br>
-          <input type="text" id="identifiant" name="identifiant"><br>
-          <label for="mdp">Mot de passe:</label><br>
-          <input type="password" id="mdp" name="mdp"><br><br>
-          <input type="submit" value="S'inscrire">
-        </form>
-      </div>
-    </div>
+      <label for="prenom">Prénom:</label>
+      <input type="text" id="prenom" name="prenom" required>
+
+      <label for="mail">Adresse email:</label>
+      <input type="email" id="mail" name="mail" required>
+
+      <label for="mdp">Mot de passe:</label>
+      <input type="password" id="mdp" name="mdp" required>
+
+      <button type="submit">S'inscrire</button>
+    </form>
   </section>
 
-  <footer>
-    &copy; 2023 Mon Site Web
-  </footer>
+  <?php //inclu la page footer 
+  include('includes/footer.php');
+  ?>
+
 </body>
 </html>
